@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Scientific calculator</string>
+    <string name="hello">Hello world I am a developer</string>
+    <string name="bye">I am going to develop a calculator</string>
+</resources>
