@@ -3,4 +3,6 @@
   It just displays the expression .
   It does not calculate anything .
   Equal to button not works.
-  Even multiplication and division button won't work.
+  +-*/ buttons Updated so that there are no consecutive signs.
+  x10 button is not ready . 
+  
