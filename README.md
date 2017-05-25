@@ -1,8 +1,7 @@
 # ScientificCalc
  As of now: 
-  It just displays the expression .
-  It does not calculate anything .
-  Equal to button not works.
-  +-*/ buttons Updated so that there are no consecutive signs.
+  There are some bugs .
+  The application might stop working if you enter inappropriate expression .
+  Factorial , sd and Integration Buttons are left to code . 
   x10 button is not ready . 
-  
+    
