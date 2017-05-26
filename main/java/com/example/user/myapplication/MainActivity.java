@@ -18,17 +18,17 @@ public class MainActivity extends AppCompatActivity {
     Button bDec, equalTo, tenPow, ans, del, ac;
     Button openBrac,closeBrac,sqrt,sin,cos,tan;
     Button Square,xn,log10,loge,xInverse,factorial;
-    Button shift,pi,e,hyp,sd,integration;
+    Button shift,pi,e,hyp,sd,integration;     
 
     EditText display;
 
     TextView ansDisplay,show;
 
     double answer = 0;
-    int count=0;
-    boolean hypFlag=false;
+    int count=0;          //Checks for shift Button 
+    boolean hypFlag=false;   //Checks for hyp Button
 
-    public static double factorial(double n)
+    public static double factorial(double n)             
     {
         if (n==1)
             return 1;
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
             return n*factorial(n-1);
     }
 
-    public static boolean isTopHigh(char a, char b) {
+    public static boolean isTopHigh(char a, char b)        //to determine whether top element of operator stack should be removed or not ( because of RPN ) 
+    {
         if(b=='s' || b=='c' || b=='t' || b=='r' || b=='l' || b=='e' || b=='x' || b=='y' || b=='z' || b=='a' || b=='b' || b=='d' || b=='f' ||b=='g' || b=='h' || b=='!')
             return true;
         else if ((b == 'X' || b == '/' )&& !(a=='s' || a=='c' || a=='t' ||a=='r' || a=='l' || a=='e' || a=='x' || a=='y' || a=='z' || a=='a' || a=='b' || a=='d' ||  a=='f' || a=='g' || a=='h' || a=='!') )
@@ -48,14 +49,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static boolean isOperator(char a) {
+    public static boolean isOperator(char a) 
+    {
         if (a == '+' || a == '-' || a == 'X' || a == '/' || a=='^')
             return true;
         else
             return false;
     }
 
-    public static double oper( double a , double b, char op  ) {
+    public static double oper( double a , double b, char op  ) 
+    {
         switch (op) {
             case '+':
                 return a + b;
@@ -121,14 +124,15 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    public void insertMiddle(String a) {
+    public void insertMiddle(String a)   // Insert any operator or number or function in the middle of the EditText input
+    {
         String input = display.getText().toString();
         int location = display.getSelectionStart();
         display.setText(input.substring(0, location) + a + input.substring(location, input.length()));
         display.setSelection(location + a.length());
     }
 
-    public static long gcd(long m ,long n )
+    public static long gcd(long m ,long n )    //Used for conversion between decimals and fraction
     {
         if(m!=n)
         {
@@ -147,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) 
+    {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_main);
 
@@ -306,10 +311,12 @@ public class MainActivity extends AppCompatActivity {
         );
         add.setOnClickListener(
                 new View.OnClickListener() {
-                    public void onClick(View v) {
+                    public void onClick(View v) 
+                    {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0) {
+                        if (location == s.length() && location!=0)   // This does not allow different operators to print simultaneously
+                        {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -329,7 +336,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location !=0) {
+                        if (location == s.length() && location !=0)  //same logic as add button 
+                        {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -350,7 +358,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0) {
+                        if (location == s.length() && location!=0) //same logic as add button 
+                        {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -371,7 +380,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0) {
+                        if (location == s.length() && location!=0)  //same logic as add button 
+                        {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -414,7 +424,8 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(count%2==0) {
+                        if(count%2==0) 
+                        {
                             if(hypFlag)
                                  insertMiddle("sinh(");
                             else
@@ -507,6 +518,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        //Not efficient 
                         int i;
                         int location=display.getSelectionStart();
                         String input=display.getText().toString();
@@ -672,17 +684,9 @@ public class MainActivity extends AppCompatActivity {
                         input = input.replaceAll("ln", "e");
 
                         input = input.replaceAll("Ans", String.valueOf(answer));
-                        // input = input.replaceAll("-+", "-");
-                        // input = input.replaceAll("--", "+");
-                        // input=input.replaceAll("+-","-");
-                        // input=input.replaceAll("++","+");
-            /*
-                      For Ans Button(Not Completed yet) :
-                        input=input.replaceAll("Ans","("+ansDisplay.getText().toString()+")");
-                        display.setText(input);
-                        display.setSelection(input.length());
-             */
-                        try {
+                        
+                        try // To stop applicaation from crashing
+                        {
                             String finalString = "";
                             for (int i = 0; i < input.length(); i++) {
                                 check = input.charAt(i);
@@ -718,18 +722,24 @@ public class MainActivity extends AppCompatActivity {
                             double num1, num2;
                             String n;
                             String a = finalString;
-                            for (int i = 0; i < a.length(); i++) {
-                                if ((a.charAt(i) >= '0' && a.charAt(i) <= '9') || a.charAt(i) == '.') {
+                            for (int i = 0; i < a.length(); i++)
+                            {
+                                if ((a.charAt(i) >= '0' && a.charAt(i) <= '9') || a.charAt(i) == '.')  // to get a number
+                                {
                                     n = "";
                                     while (a.charAt(i) != ' ') {
                                         n += a.charAt(i);
                                         i++;
                                     }
                                     stack1[++end] = Double.parseDouble(n);
-                                } else if (isFunction(a.charAt(i))) {
+                                }
+                                else if (isFunction(a.charAt(i))) 
+                                {
                                     num1 = stack1[end--];
                                     stack1[++end] = oper(num1, a.charAt(i));
-                                } else if (isOperator(a.charAt(i))) {
+                                }
+                                else if (isOperator(a.charAt(i))) 
+                                {
                                     num1 = stack1[end--];
                                     if (end >= 0)
                                         num2 = stack1[end--];
@@ -743,9 +753,10 @@ public class MainActivity extends AppCompatActivity {
                             ansDisplay.setText(finalString);
                             if (finalString == "Infinity")
                                 ansDisplay.setText("\u221E");
-                            if (finalString == "NaN")
+                            else if (finalString == "NaN")
                                 ansDisplay.setText(" Impossible !! ");
-                            else if (finalString.contains("E")) {
+                            else if (finalString.contains("E")) //To display in power of 10
+                            {
                                 String tenPower = "";
                                 for (int i = finalString.indexOf("E") + 1; i < finalString.length(); i++)
                                     tenPower += finalString.charAt(i);
