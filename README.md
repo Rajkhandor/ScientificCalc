@@ -1,7 +1,7 @@
 # ScientificCalc
- As of now: 
-  There are some bugs .
-  The application might stop working if you enter inappropriate expression .
-  Factorial , sd and Integration Buttons are left to code . 
-  x10 button is not ready . 
-    
+    A Calculator with all the basic scientific functions.
+	The application is not completely tested . You may encounter some bugs.
+	It's precision is upto 10 decimal places (Expressions in negative powers of ten are not included in this).
+	
+	
+		 
