@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -7,6 +8,24 @@
     android:orientation="vertical"
     android:weightSum="100"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_weight="7"
+        android:background="#3F51B5"
+        android:weightSum="100"
+        >
+     <TextView
+         android:layout_weight="95"
+         android:layout_width="200dp"
+         android:layout_height="match_parent"
+         android:text="@string/app_name"
+         android:textColor="@android:color/white"
+         android:layout_marginLeft="15dp"
+         android:layout_marginTop="10dp"
+         android:textSize="20dp"/>
+
+    </LinearLayout>
     <TextView
         android:id="@+id/show"
         android:layout_width="match_parent"
@@ -18,6 +37,7 @@
         android:textStyle="bold"/>
 
     <EditText
+        android:inputType="number"
         android:id="@+id/display"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -27,8 +47,6 @@
         android:hint="Enter your expression "
         android:gravity="left"
         android:layout_weight="15"
-        android:lines="2"
-        android:maxLines="2"
         android:selectAllOnFocus="false"
         />
 
@@ -51,7 +69,7 @@
         android:id="@+id/l7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:weightSum="120"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="1dp"
@@ -59,7 +77,7 @@
         <Button
             android:id="@+id/shift"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="Shift"
             android:textSize="15sp"
@@ -70,7 +88,7 @@
         <Button
             android:id="@+id/pi"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="\u03C0"
             android:textSize="20sp"
@@ -83,7 +101,7 @@
         <Button
             android:id="@+id/e"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="e"
             android:textSize="20sp"
@@ -95,7 +113,7 @@
         <Button
             android:id="@+id/hyperbolic"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="hyp"
             android:textSize="20sp"
@@ -107,7 +125,7 @@
         <Button
             android:id="@+id/fraction"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="sd"
             android:textSize="20sp"
@@ -117,11 +135,11 @@
             android:textAllCaps="false"
             android:layout_marginLeft="1dp"/>
         <Button
-            android:id="@+id/Integrate"
+            android:id="@+id/quit"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
-            android:text="\u222B"
+            android:text="Quit"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
@@ -134,14 +152,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="120"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="1dp"
         android:layout_marginRight="5dp">
         <Button
             android:id="@+id/square"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="@string/xSquare"
             android:textSize="20sp"
@@ -153,7 +171,7 @@
         <Button
             android:id="@+id/xn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="@string/xn"
             android:textSize="20sp"
@@ -166,7 +184,7 @@
         <Button
             android:id="@+id/log10"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="@string/log10"
             android:textSize="20sp"
@@ -179,7 +197,7 @@
         <Button
             android:id="@+id/loge"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="@string/loge"
             android:textSize="20sp"
@@ -191,7 +209,7 @@
         <Button
             android:id="@+id/xInverse"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="@string/xInverse"
             android:textSize="20sp"
@@ -203,7 +221,7 @@
         <Button
             android:id="@+id/factorial"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="x !"
             android:textSize="20sp"
@@ -220,14 +238,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="120"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:layout_marginLeft="5dp"
-        android:layout_marginBottom="1dp"
         android:layout_marginRight="5dp">
         <Button
             android:id="@+id/openBrac"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="("
             android:textSize="20sp"
@@ -238,7 +255,7 @@
         <Button
             android:id="@+id/closeBrac"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text=")"
             android:textSize="20sp"
@@ -250,7 +267,7 @@
         <Button
             android:id="@+id/sqRoot"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="\u221a"
             android:textSize="20sp"
@@ -263,7 +280,7 @@
         <Button
             android:id="@+id/sin"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="sin"
             android:textSize="20sp"
@@ -277,7 +294,7 @@
         <Button
             android:id="@+id/cos"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="cos"
             android:textSize="20sp"
@@ -290,7 +307,7 @@
         <Button
             android:id="@+id/tan"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="20"
             android:text="tan"
             android:textSize="20sp"
@@ -305,17 +322,18 @@
         android:id="@+id/l4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:weightSum="100"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="1dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         >
 
         <Button
             android:id="@+id/b7"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="7"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -327,7 +345,7 @@
         <Button
             android:id="@+id/b8"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="8"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -340,7 +358,7 @@
         <Button
             android:id="@+id/b9"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="9"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -352,7 +370,7 @@
         <Button
             android:id="@+id/delete"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="del"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -364,7 +382,7 @@
         <Button
             android:id="@+id/AC"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="AC"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -379,7 +397,7 @@
         android:id="@+id/l3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:weightSum="100"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="1dp"
@@ -388,7 +406,7 @@
         <Button
             android:id="@+id/b4"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="4"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -399,7 +417,7 @@
         <Button
             android:id="@+id/b5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="5"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -411,7 +429,7 @@
         <Button
             android:id="@+id/b6"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="6"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -423,7 +441,7 @@
         <Button
             android:id="@+id/multiply"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="x"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -435,7 +453,7 @@
         <Button
             android:id="@+id/divide"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="/"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -450,7 +468,7 @@
         android:id="@+id/l2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:weightSum="100"
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="1dp"
@@ -459,7 +477,7 @@
         <Button
             android:id="@+id/b1"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="1"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -470,7 +488,7 @@
         <Button
             android:id="@+id/b2"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="2"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -482,7 +500,7 @@
         <Button
             android:id="@+id/b3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="3"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -494,7 +512,7 @@
         <Button
             android:id="@+id/plus"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="+"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -506,7 +524,7 @@
         <Button
             android:id="@+id/minus"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="-"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -521,7 +539,7 @@
         android:id="@+id/l1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:weightSum="100"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
@@ -530,7 +548,7 @@
         <Button
             android:id="@+id/b0"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="0"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -542,7 +560,7 @@
         <Button
             android:id="@+id/bDecimal"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="."
             android:textSize="20sp"
             android:textStyle="bold"
@@ -554,7 +572,7 @@
         <Button
             android:id="@+id/tenPower"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="x10"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -566,7 +584,7 @@
         <Button
             android:id="@+id/ans"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Ans"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -578,7 +596,7 @@
         <Button
             android:id="@+id/equalTo"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="="
             android:textSize="20sp"
             android:textStyle="bold"

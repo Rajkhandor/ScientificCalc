@@ -1,6 +1,8 @@
 package com.example.user.myapplication;
 
+import android.app.Activity;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.renderscript.Double2;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -11,24 +13,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     Button add, sub, mul, div ;
     Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9;
     Button bDec, equalTo, tenPow, ans, del, ac;
     Button openBrac,closeBrac,sqrt,sin,cos,tan;
     Button Square,xn,log10,loge,xInverse,factorial;
-    Button shift,pi,e,hyp,sd,integration;     
+    Button shift,pi,e,hyp,sd,quit;
 
     EditText display;
 
     TextView ansDisplay,show;
 
     double answer = 0;
-    int count=0;          //Checks for shift Button 
-    boolean hypFlag=false;   //Checks for hyp Button
+    int count=0;
+    boolean hypFlag=false;
 
-    public static double factorial(double n)             
+    public static double factorial(double n)
     {
         if (n==1)
             return 1;
@@ -36,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
             return n*factorial(n-1);
     }
 
-    public static boolean isTopHigh(char a, char b)        //to determine whether top element of operator stack should be removed or not ( because of RPN ) 
-    {
+    public static boolean isTopHigh(char a, char b) {
         if(b=='s' || b=='c' || b=='t' || b=='r' || b=='l' || b=='e' || b=='x' || b=='y' || b=='z' || b=='a' || b=='b' || b=='d' || b=='f' ||b=='g' || b=='h' || b=='!')
             return true;
         else if ((b == 'X' || b == '/' )&& !(a=='s' || a=='c' || a=='t' ||a=='r' || a=='l' || a=='e' || a=='x' || a=='y' || a=='z' || a=='a' || a=='b' || a=='d' ||  a=='f' || a=='g' || a=='h' || a=='!') )
@@ -49,16 +50,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static boolean isOperator(char a) 
-    {
+    public static boolean isOperator(char a) {
         if (a == '+' || a == '-' || a == 'X' || a == '/' || a=='^')
             return true;
         else
             return false;
     }
 
-    public static double oper( double a , double b, char op  ) 
-    {
+    public static double oper( double a , double b, char op  ) {
         switch (op) {
             case '+':
                 return a + b;
@@ -124,15 +123,14 @@ public class MainActivity extends AppCompatActivity {
         return 0;
     }
 
-    public void insertMiddle(String a)   // Insert any operator or number or function in the middle of the EditText input
-    {
+    public void insertMiddle(String a) {
         String input = display.getText().toString();
         int location = display.getSelectionStart();
         display.setText(input.substring(0, location) + a + input.substring(location, input.length()));
         display.setSelection(location + a.length());
     }
 
-    public static long gcd(long m ,long n )    //Used for conversion between decimals and fraction
+    public static long gcd(long m ,long n )
     {
         if(m!=n)
         {
@@ -151,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     @Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //  setContentView(R.layout.activity_main);
 
@@ -214,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         e= (Button) findViewById(R.id.e);
         hyp= (Button) findViewById(R.id.hyperbolic);
         sd= (Button) findViewById(R.id.fraction);
-        integration = (Button) findViewById(R.id.Integrate);
+        quit = (Button) findViewById(R.id.quit);
 
         display = (EditText) findViewById(R.id.display);
 
@@ -311,12 +308,10 @@ public class MainActivity extends AppCompatActivity {
         );
         add.setOnClickListener(
                 new View.OnClickListener() {
-                    public void onClick(View v) 
-                    {
+                    public void onClick(View v) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0)   // This does not allow different operators to print simultaneously
-                        {
+                        if (location == s.length() && location!=0) {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -336,8 +331,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location !=0)  //same logic as add button 
-                        {
+                        if (location == s.length() && location !=0) {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -358,8 +352,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0) //same logic as add button 
-                        {
+                        if (location == s.length() && location!=0) {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -380,8 +373,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         String s = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0)  //same logic as add button 
-                        {
+                        if (location == s.length() && location!=0) {
                             String finalString = "";
                             char check = s.charAt(s.length() - 1);
                             if (isOperator(check)) {
@@ -424,8 +416,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(count%2==0) 
-                        {
+                        if(count%2==0) {
                             if(hypFlag)
                                  insertMiddle("sinh(");
                             else
@@ -518,7 +509,6 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Not efficient 
                         int i;
                         int location=display.getSelectionStart();
                         String input=display.getText().toString();
@@ -639,13 +629,28 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String input = ansDisplay.getText().toString();
-                        double ans = Double.parseDouble(input);
-                        long num =(long) (ans*10000);
-                        long den = 10000;
-                        long factor = gcd( num , den );
-                        num = num / factor ;
-                        den = den / factor ;
-                        ansDisplay.setText(num+"/"+den);
+                        int location = 0;
+                        if(input.contains("/"))
+                        {
+                            for(int i=0;i<input.length();i++)
+                            {
+                                if(input.charAt(i)=='/')
+                                    location = i;
+                            }
+                            double num = Double.parseDouble(input.substring(0,location));
+                            double den = Double.parseDouble(input.substring(location+1,input.length()));
+                            double ans = num/den;
+                            ansDisplay.setText(ans+"");
+                        }
+                        else {
+                            double ans = Double.parseDouble(input);
+                            long num = (long) (ans * 10000);
+                            long den = 10000;
+                            long factor = gcd(num, den);
+                            num = num / factor;
+                            den = den / factor;
+                            ansDisplay.setText(num + "/" + den);
+                        }
                     }
                 }
         );
@@ -684,9 +689,17 @@ public class MainActivity extends AppCompatActivity {
                         input = input.replaceAll("ln", "e");
 
                         input = input.replaceAll("Ans", String.valueOf(answer));
-                        
-                        try // To stop applicaation from crashing
-                        {
+                        // input = input.replaceAll("-+", "-");
+                        // input = input.replaceAll("--", "+");
+                        // input=input.replaceAll("+-","-");
+                        // input=input.replaceAll("++","+");
+            /*
+                      For Ans Button(Not Completed yet) :
+                        input=input.replaceAll("Ans","("+ansDisplay.getText().toString()+")");
+                        display.setText(input);
+                        display.setSelection(input.length());
+             */
+                        try {
                             String finalString = "";
                             for (int i = 0; i < input.length(); i++) {
                                 check = input.charAt(i);
@@ -722,24 +735,18 @@ public class MainActivity extends AppCompatActivity {
                             double num1, num2;
                             String n;
                             String a = finalString;
-                            for (int i = 0; i < a.length(); i++)
-                            {
-                                if ((a.charAt(i) >= '0' && a.charAt(i) <= '9') || a.charAt(i) == '.')  // to get a number
-                                {
+                            for (int i = 0; i < a.length(); i++) {
+                                if ((a.charAt(i) >= '0' && a.charAt(i) <= '9') || a.charAt(i) == '.') {
                                     n = "";
                                     while (a.charAt(i) != ' ') {
                                         n += a.charAt(i);
                                         i++;
                                     }
                                     stack1[++end] = Double.parseDouble(n);
-                                }
-                                else if (isFunction(a.charAt(i))) 
-                                {
+                                } else if (isFunction(a.charAt(i))) {
                                     num1 = stack1[end--];
                                     stack1[++end] = oper(num1, a.charAt(i));
-                                }
-                                else if (isOperator(a.charAt(i))) 
-                                {
+                                } else if (isOperator(a.charAt(i))) {
                                     num1 = stack1[end--];
                                     if (end >= 0)
                                         num2 = stack1[end--];
@@ -749,14 +756,16 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                             answer = stack1[end];
-                            finalString = String.valueOf(stack1[end]);
+                            answer = Math.round(answer * 10000000000D) / 10000000000D;
+
+                            finalString = String.valueOf(answer);
+
                             ansDisplay.setText(finalString);
                             if (finalString == "Infinity")
                                 ansDisplay.setText("\u221E");
-                            else if (finalString == "NaN")
+                            if (finalString == "NaN")
                                 ansDisplay.setText(" Impossible !! ");
-                            else if (finalString.contains("E")) //To display in power of 10
-                            {
+                            else if (finalString.contains("E")) {
                                 String tenPower = "";
                                 for (int i = finalString.indexOf("E") + 1; i < finalString.length(); i++)
                                     tenPower += finalString.charAt(i);
@@ -816,7 +825,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+        quit.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                }
+        );
     }
 
 }
-

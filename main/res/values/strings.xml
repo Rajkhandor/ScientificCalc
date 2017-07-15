@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">Scientific calculator</string>
-    <string name="hello">Hello world I am a developer</string>
-    <string name="bye">I am going to develop a calculator</string>
+
+    <string name="xSquare">x<sup><small>2</small></sup></string>
+    <string name="xCube">x<sup><small>3</small></sup></string>
+    <string name="xn">x<sup><small>n</small></sup></string>
+
+    <string name="log10">log</string>
+    <string name="loge">ln</string>
+
+    <string name="xInverse">x<sup><small>-1</small></sup></string>
+
+    <string name="sinInverse">sin<sup><small>-1</small></sup></string>
+    <string name="cosInverse">cos<sup><small>-1</small></sup></string>
+    <string name="tanInverse">tan<sup><small>-1</small></sup></string>
+
 </resources>
