@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static com.example.user.myapplication.R.id.l1;
+
 public class MainActivity extends Activity {
 
     Button add, sub, mul, div ;
@@ -20,15 +22,17 @@ public class MainActivity extends Activity {
     Button bDec, equalTo, tenPow, ans, del, ac;
     Button openBrac,closeBrac,sqrt,sin,cos,tan;
     Button Square,xn,log10,loge,xInverse,factorial;
-    Button shift,pi,e,hyp,sd,quit;
+    Button shift,pi,e,hyp,sd,rad;
 
     EditText display;
 
-    TextView ansDisplay,show;
+    TextView ansDisplay,show,showRad;
 
     double answer = 0;
-    int count=0;
-    boolean hypFlag=false;
+
+    static boolean hypFlag = false;
+    static boolean radians = false ;
+    static boolean shiftFlag = false;
 
     public static double factorial(double n)
     {
@@ -39,9 +43,9 @@ public class MainActivity extends Activity {
     }
 
     public static boolean isTopHigh(char a, char b) {
-        if(b=='s' || b=='c' || b=='t' || b=='r' || b=='l' || b=='e' || b=='x' || b=='y' || b=='z' || b=='a' || b=='b' || b=='d' || b=='f' ||b=='g' || b=='h' || b=='!')
+        if(b=='^'||b=='s' || b=='c' || b=='t' || b=='r' || b=='l' || b=='e' || b=='x' || b=='y' || b=='z' || b=='a' || b=='b' || b=='d' || b=='f' ||b=='g' || b=='h' || b=='!')
             return true;
-        else if ((b == 'X' || b == '/' )&& !(a=='s' || a=='c' || a=='t' ||a=='r' || a=='l' || a=='e' || a=='x' || a=='y' || a=='z' || a=='a' || a=='b' || a=='d' ||  a=='f' || a=='g' || a=='h' || a=='!') )
+        else if ((b == 'X' || b == '/' )&& !(a=='^'||a=='s' || a=='c' || a=='t' ||a=='r' || a=='l' || a=='e' || a=='x' || a=='y' || a=='z' || a=='a' || a=='b' || a=='d' ||  a=='f' || a=='g' || a=='h' || a=='!') )
             return true;
         else if ((a == '+' || a == '-') && (b == '+' || b == '-'))
             return true;
@@ -83,18 +87,35 @@ public class MainActivity extends Activity {
         switch(op)
         {
             case 's':
-                return Math.sin(Math.toRadians(a));
+                if(radians)
+                    return Math.sin(a);
+                else
+                    return Math.sin(Math.toRadians(a));
             case 'c':
-                return Math.cos(Math.toRadians(a));
+                if(radians)
+                    return Math.cos(a);
+                else
+                    return Math.cos(Math.toRadians(a));
             case 't':
-                return Math.tan(Math.toRadians(a));
-
+                if(radians)
+                    return Math.tan(a);
+                else
+                    return Math.tan(Math.toRadians(a));
             case 'x':
-                return Math.toDegrees(Math.asin(a));
+                if(radians)
+                    return Math.asin(a);
+                else
+                    return Math.toDegrees(Math.asin(a));
             case 'y':
-                return Math.toDegrees(Math.acos(a));
+                if(radians)
+                    return Math.acos(a);
+                else
+                    return Math.toDegrees(Math.acos(a));
             case 'z':
-                return Math.toDegrees(Math.atan(a));
+                if(radians)
+                    return Math.atan(a);
+                else
+                    return Math.toDegrees(Math.atan(a));
 
             case 'r':
                 return Math.sqrt(a);
@@ -124,9 +145,9 @@ public class MainActivity extends Activity {
     }
 
     public void insertMiddle(String a) {
-        String input = display.getText().toString();
+        String inputText = display.getText().toString();
         int location = display.getSelectionStart();
-        display.setText(input.substring(0, location) + a + input.substring(location, input.length()));
+        display.setText(inputText.substring(0, location) + a + inputText.substring(location, inputText.length()));
         display.setSelection(location + a.length());
     }
 
@@ -135,19 +156,14 @@ public class MainActivity extends Activity {
         if(m!=n)
         {
             if(m>n)
-            {
                 return gcd(m-n,n);
-            }
             else
-            {
                 return gcd(n-m,m);
-            }
         }
         else
-        {
             return m;
-        }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,12 +227,13 @@ public class MainActivity extends Activity {
         e= (Button) findViewById(R.id.e);
         hyp= (Button) findViewById(R.id.hyperbolic);
         sd= (Button) findViewById(R.id.fraction);
-        quit = (Button) findViewById(R.id.quit);
+        rad = (Button) findViewById(R.id.radians);
 
         display = (EditText) findViewById(R.id.display);
 
         ansDisplay = (TextView) findViewById(R.id.ansDisplay);
         show = (TextView) findViewById(R.id.show);
+        showRad = (TextView) findViewById(R.id.showRad);
 
         b0.setOnClickListener(
                 new View.OnClickListener() {
@@ -309,16 +326,16 @@ public class MainActivity extends Activity {
         add.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        String s = display.getText().toString();
+                        String inputText = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location!=0) {
+                        if (location == inputText.length() && location!=0) {
                             String finalString = "";
-                            char check = s.charAt(s.length() - 1);
+                            char check = inputText.charAt(inputText.length() - 1);
                             if (isOperator(check)) {
-                                finalString = s.substring(0, s.length() - 1);
+                                finalString = inputText.substring(0, inputText.length() - 1);
                                 finalString += "+";
                             } else
-                                finalString = s + "+";
+                                finalString = inputText + "+";
                             display.setText(finalString);
                             display.setSelection(finalString.length());
                         } else
@@ -329,16 +346,16 @@ public class MainActivity extends Activity {
         sub.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View v) {
-                        String s = display.getText().toString();
+                        String inputText = display.getText().toString();
                         int location = display.getSelectionStart();
-                        if (location == s.length() && location !=0) {
+                        if (location == inputText.length() && location !=0) {
                             String finalString = "";
-                            char check = s.charAt(s.length() - 1);
+                            char check = inputText.charAt(inputText.length() - 1);
                             if (isOperator(check)) {
-                                finalString = s.substring(0, s.length() - 1);
+                                finalString = inputText.substring(0, inputText.length() - 1);
                                 finalString += "-";
                             } else
-                                finalString = s + "-";
+                                finalString = inputText + "-";
                             display.setText(finalString);
                             display.setSelection(finalString.length());
                         } else
@@ -416,17 +433,17 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(count%2==0) {
+                        if(shiftFlag) {
                             if(hypFlag)
-                                 insertMiddle("sinh(");
+                                 insertMiddle("asinh(");
                             else
-                                insertMiddle("sin(");
+                                insertMiddle("asin(");
                         }
                         else {
                             if(hypFlag)
-                               insertMiddle("asinh(");
+                               insertMiddle("sinh(");
                             else
-                                insertMiddle("asin(");
+                                insertMiddle("sin(");
                         }
                     }
                 }
@@ -435,17 +452,17 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(count%2==0) {
-                            if(hypFlag)
-                                insertMiddle("cosh(");
-                            else
-                                insertMiddle("cos(");
-                        }
-                        else {
+                        if(shiftFlag) {
                             if(hypFlag)
                                 insertMiddle("acosh(");
                             else
                                 insertMiddle("acos(");
+                        }
+                        else {
+                            if(hypFlag)
+                                insertMiddle("cosh(");
+                            else
+                                insertMiddle("cos(");
                         }
                     }
                 }
@@ -455,17 +472,17 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(count%2==0) {
-                            if(hypFlag)
-                                insertMiddle("tanh(");
-                            else
-                                insertMiddle("tan(");
-                        }
-                        else {
+                        if(shiftFlag) {
                             if(hypFlag)
                                 insertMiddle("atanh(");
                             else
                                 insertMiddle("atan(");
+                        }
+                        else {
+                            if(hypFlag)
+                                insertMiddle("tanh(");
+                            else
+                                insertMiddle("tan(");
                         }
                     }
                 }
@@ -474,10 +491,10 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(count%2==0)
-                            insertMiddle("^2");
-                        else
+                        if(shiftFlag)
                             insertMiddle("^3");
+                        else
+                            insertMiddle("^2");
                     }
                 }
         );
@@ -536,14 +553,14 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        count++;
-                        if(count%2!=0) {
+                        shiftFlag = !shiftFlag;
+                        if(shiftFlag) {
                             if (hypFlag) {
                                 sin.setText("asinh");
                                 cos.setText("acosh");
                                 tan.setText("atanh");
                                 Square.setText(Html.fromHtml("x" + "<sup><small>3</small></sup>"));
-                                show.setText("Shift hyp");
+                                show.setText("Shift   hyp ");
                             } else {
                                 sin.setText("asin");
                                 cos.setText("acos");
@@ -558,7 +575,7 @@ public class MainActivity extends Activity {
                                 cos.setText("cosh");
                                 tan.setText("tanh");
                                 Square.setText(Html.fromHtml("x" + "<sup><small>2</small></sup>"));
-                                show.setText("      hyp");
+                                show.setText("        hyp ");
                             } else {
                                 sin.setText("sin");
                                 cos.setText("cos");
@@ -575,13 +592,13 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(View view) {
                         hypFlag=!hypFlag;
-                        if(count%2!=0) {
+                        if(shiftFlag) {
                             if (hypFlag) {
                                 sin.setText("asinh");
                                 cos.setText("acosh");
                                 tan.setText("atanh");
                                 Square.setText(Html.fromHtml("x" + "<sup><small>3</small></sup>"));
-                                show.setText("Shift hyp");
+                                show.setText("Shift   hyp");
                             } else {
                                 sin.setText("asin");
                                 cos.setText("acos");
@@ -596,7 +613,7 @@ public class MainActivity extends Activity {
                                 cos.setText("cosh");
                                 tan.setText("tanh");
                                 Square.setText(Html.fromHtml("x" + "<sup><small>2</small></sup>"));
-                                show.setText("      hyp");
+                                show.setText("        hyp");
                             } else {
                                 sin.setText("sin");
                                 cos.setText("cos");
@@ -630,26 +647,28 @@ public class MainActivity extends Activity {
                     public void onClick(View view) {
                         String input = ansDisplay.getText().toString();
                         int location = 0;
-                        if(input.contains("/"))
-                        {
-                            for(int i=0;i<input.length();i++)
-                            {
-                                if(input.charAt(i)=='/')
-                                    location = i;
+                        try {
+
+                            if (input.contains("/")) {
+                                for (int i = 0; i < input.length(); i++) {
+                                    if (input.charAt(i) == '/')
+                                        location = i;
+                                }
+                                double num = Double.parseDouble(input.substring(0, location));
+                                double den = Double.parseDouble(input.substring(location + 1, input.length()));
+                                double ans = num / den;
+                                ansDisplay.setText(ans + "");
+                            } else {
+                                double ans = Double.parseDouble(input);
+                                long num = (long) (ans * 10000);
+                                long den = 10000;
+                                long factor = gcd(num, den);
+                                num = num / factor;
+                                den = den / factor;
+                                ansDisplay.setText(num + "/" + den);
                             }
-                            double num = Double.parseDouble(input.substring(0,location));
-                            double den = Double.parseDouble(input.substring(location+1,input.length()));
-                            double ans = num/den;
-                            ansDisplay.setText(ans+"");
-                        }
-                        else {
-                            double ans = Double.parseDouble(input);
-                            long num = (long) (ans * 10000);
-                            long den = 10000;
-                            long factor = gcd(num, den);
-                            num = num / factor;
-                            den = den / factor;
-                            ansDisplay.setText(num + "/" + den);
+                        }catch(Exception e){
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -658,12 +677,31 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         int end = 0;
-                        char[] operator = new char[20];
+                        char[] operator = new char[50];
                         char check;
+                        boolean errorFlag = false;
                         String input = display.getText().toString();
                         input = input.replaceAll("\\s", "");
+
+                        for(int i=1;i<input.length();i++)
+                        {
+                            if(input.charAt(i)>='1' && input.charAt(i)<='9' || input.charAt(i)=='.')
+                            {
+                                if(input.charAt(i-1)>='a' && input.charAt(i-1)<='z' || input.charAt(i-1)==')')
+                                    errorFlag = true;
+                            }
+                        }
+                        if(input.contains("()"))
+                            errorFlag = true;
+                        for(int i=0;i<input.length()-1;i++)
+                        {
+                            if(input.charAt(i)>='1' && input.charAt(i)<='9' || input.charAt(i)=='.')
+                            {
+                                if(input.charAt(i+1)>='a' && input.charAt(i+1)<='z' || input.charAt(i+1)=='(')
+                                    errorFlag = true;
+                            }
+                        }
 
                         input = input.replaceAll("asinh", "a");
                         input = input.replaceAll("acosh", "b");
@@ -689,19 +727,10 @@ public class MainActivity extends Activity {
                         input = input.replaceAll("ln", "e");
 
                         input = input.replaceAll("Ans", String.valueOf(answer));
-                        // input = input.replaceAll("-+", "-");
-                        // input = input.replaceAll("--", "+");
-                        // input=input.replaceAll("+-","-");
-                        // input=input.replaceAll("++","+");
-            /*
-                      For Ans Button(Not Completed yet) :
-                        input=input.replaceAll("Ans","("+ansDisplay.getText().toString()+")");
-                        display.setText(input);
-                        display.setSelection(input.length());
-             */
                         try {
                             String finalString = "";
-                            for (int i = 0; i < input.length(); i++) {
+                            for (int i = 0; i < input.length(); i++)
+                            {
                                 check = input.charAt(i);
                                 if ((check >= '0' && check <= '9') || check == '.') {
                                     finalString += check;
@@ -756,21 +785,35 @@ public class MainActivity extends Activity {
                                 }
                             }
                             answer = stack1[end];
-                            answer = Math.round(answer * 10000000000D) / 10000000000D;
+                            if(!input.contains("X") && !input.contains("^") )
+                            {
+                                if(answer<0.000000001 && answer >-1)
+                                    answer=0;
+                                if (answer >= 1000000000)
+                                    finalString = "Infinity";
+                                else
+                                    finalString = String.valueOf(answer);
+                            }
+                            else
+                                finalString = String.valueOf(answer);
 
-                            finalString = String.valueOf(answer);
-
-                            ansDisplay.setText(finalString);
-                            if (finalString == "Infinity")
+                            if(errorFlag)
+                                ansDisplay.setText("Invalid Expression");
+                            else if (finalString == "Infinity")
                                 ansDisplay.setText("\u221E");
-                            if (finalString == "NaN")
+                            else if (finalString == "NaN")
                                 ansDisplay.setText(" Impossible !! ");
                             else if (finalString.contains("E")) {
                                 String tenPower = "";
                                 for (int i = finalString.indexOf("E") + 1; i < finalString.length(); i++)
                                     tenPower += finalString.charAt(i);
                                 ansDisplay.setText(finalString.substring(0, finalString.indexOf("E")) + " X 10^" + tenPower);
-
+                            }
+                            else
+                            {
+                                answer = Math.round(answer * 10000000000D) / 10000000000D;
+                                finalString = String.valueOf(answer);
+                                ansDisplay.setText(finalString);
                             }
                         }catch(StringIndexOutOfBoundsException e ){
                             ansDisplay.setText("Invalid Expression");
@@ -813,7 +856,14 @@ public class MainActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        insertMiddle("(Ans)");
+                        if(ansDisplay.getText().toString().equals(""))
+                            insertMiddle("Ans");
+                        else
+                        {
+                            display.setText("Ans");
+                            ansDisplay.setText("");
+                            display.setSelection(3);
+                        }
                     }
                 }
         );
@@ -825,12 +875,15 @@ public class MainActivity extends Activity {
                     }
                 }
         );
-        quit.setOnClickListener(
+        rad.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
+                        radians = !radians;
+                        if(radians)
+                            showRad.setText("Radians ");
+                        else
+                            showRad.setText("");
                     }
                 }
         );
