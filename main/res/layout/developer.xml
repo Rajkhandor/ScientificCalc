@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Developed by :\n\n1.Raj Khandor\n2.Tushar Kini\n3.Vinayak Borhade"
+    android:textSize="30dp"
+    android:textColor="@android:color/white"
+    android:layout_margin="40dp"/>
+</RelativeLayout>

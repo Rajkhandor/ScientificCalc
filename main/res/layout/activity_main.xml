@@ -26,16 +26,33 @@
          android:textSize="20dp"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:weightSum="100">
     <TextView
         android:id="@+id/show"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:textSize="7dp"
+        android:layout_weight="50"
         android:textColor="@android:color/black"
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:textStyle="bold"/>
-
+        <TextView
+            android:id="@+id/showRad"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_weight="50"
+            android:textSize="7dp"
+            android:textColor="@android:color/black"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:layout_gravity="right"
+            />
+    </LinearLayout>
     <EditText
         android:inputType="number"
         android:id="@+id/display"
@@ -135,11 +152,11 @@
             android:textAllCaps="false"
             android:layout_marginLeft="1dp"/>
         <Button
-            android:id="@+id/quit"
+            android:id="@+id/radians"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="20"
-            android:text="Quit"
+            android:text="rad"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@android:color/white"
